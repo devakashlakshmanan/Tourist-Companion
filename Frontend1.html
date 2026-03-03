@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tourist Companion with AI</title>
+  <meta name="description" content="Your Virtual Travel Guide for India. Plan trips, check weather, and ask our AI companion for recommendations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./static/style.css">
+  <!-- Note: Replace YOUR_GOOGLE_MAPS_KEY with an actual API key to render the map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_KEY" async defer></script>
+</head>
+<body>
+
+  <div class="app-container">
+    <header class="glass-panel">
+      <h1><span class="emoji">🇮🇳</span> Tourist Companion with AI</h1>
+      <p>Your Virtual Travel Guide for India</p>
+    </header>
+
+    <main class="dashboard">
+      <section class="planner glass-panel card">
+        <h2>🗺️ Plan Your Journey</h2>
+        <div class="input-group">
+          <input type="text" id="start" placeholder="Starting Location" autocomplete="off">
+        </div>
+        <div class="input-group">
+          <input type="text" id="destination" placeholder="Destination (e.g., Ooty)" autocomplete="off">
+        </div>
+        <div class="input-group">
+          <input type="date" id="date">
+        </div>
+        <button onclick="planTrip()" class="primary-btn">Plan Trip</button>
+      </section>
+
+      <section id="weather" class="glass-panel card hidden">
+        <!-- Weather widgets will be injected here -->
+      </section>
+
+      <div id="map" class="glass-panel card map-container">
+        <div class="map-placeholder">Map View (Requires API Key)</div>
+      </div>
+
+      <section class="gallery glass-panel card">
+        <h2>📸 Famous Places</h2>
+        <div class="image-wrapper">
+          <!-- Default placeholder until searched -->
+          <img id="placeImage" src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=80&w=1000" alt="Tourist Place in India">
+          <div class="image-overlay" id="imageOverlayText">Explore India</div>
+        </div>
+      </section>
+
+      <section class="chatbot glass-panel card">
+        <h2>🤖 Ask Tourist AI</h2>
+        <div class="chat-container">
+          <div id="chatResponse" class="chat-history">
+            <div class="message ai-message">Hello! I'm your AI Tourist Companion. Where would you like to explore today?</div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Ask about places, hotels, routes..." onkeypress="handleChatEnter(event)">
+            <button onclick="askAI()" class="icon-btn" aria-label="Send">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script src="./static/script.js"></script>
+</body>
+</html>
