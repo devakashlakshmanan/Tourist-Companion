@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: tourist-companion
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --chdir backend app:app
+    envVars:
+      - key: MONGO_URI
+        sync: false # User will need to provide this in Render dashboard
+      - key: GROQ_API_KEY
+        sync: false # User will need to provide this in Render dashboard
