@@ -71,7 +71,7 @@ const Destinations = ({ onAskAi, onOpenMap }) => {
   const [selected, setSelected] = useState(null);
   const [page, setPage] = useState(1);
   useEffect(() => {
-    fetch("http://localhost:5000/api/destinations").then((r) => r.json()).then((d) => {
+    fetch("/api/destinations").then((r) => r.json()).then((d) => {
       setDests(d);
       setLoading(false);
     });
@@ -185,7 +185,7 @@ const AIGuide = ({ initMsg, clearMsg }) => {
     setLoading(true);
     setMsgs((p) => [...p, { id: Date.now(), type: "usr", text: msg }]);
     try {
-      const r = await fetch("http://localhost:5000/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: msg, history: msgs }) });
+      const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: msg, history: msgs }) });
       const d = await r.json();
       setMsgs((p) => [...p, { id: Date.now() + 1, type: "ai", text: d.reply }]);
     } catch (e) {
@@ -218,7 +218,7 @@ const TripPlanner = () => {
   const [itin, setItin] = useState(null);
   const pdfRef = useRef();
   useEffect(() => {
-    fetch("http://localhost:5000/api/destinations").then((r) => r.json()).then((d) => {
+    fetch("/api/destinations").then((r) => r.json()).then((d) => {
       setDestinations(d);
       const locs = [...new Set(d.map((item) => item.location))].sort();
       setLocations(locs);
@@ -318,7 +318,7 @@ const Weather = () => {
   const [destinations, setDestinations] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
   useEffect(() => {
-    fetch("http://localhost:5000/api/destinations").then((r) => r.json()).then((d) => setDestinations(d));
+    fetch("/api/destinations").then((r) => r.json()).then((d) => setDestinations(d));
   }, []);
   const handleSelect = (e) => {
     const dest = destinations.find((d) => d.id.toString() === e.target.value);

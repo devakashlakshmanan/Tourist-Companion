@@ -176,7 +176,7 @@ const Destinations = ({ onAskAi, onOpenMap }) => {
     const [selected, setSelected] = useState(null);
     const [page, setPage] = useState(1);
 
-    useEffect(() => { fetch('http://localhost:5000/api/destinations').then(r => r.json()).then(d => { setDests(d); setLoading(false); }); }, []);
+    useEffect(() => { fetch('/api/destinations').then(r => r.json()).then(d => { setDests(d); setLoading(false); }); }, []);
 
     const filtered = dests.filter(d =>
         (filters.b === 'All' || d.budget_est === filters.b) &&
@@ -689,7 +689,7 @@ const AIGuide = ({ initMsg, clearMsg }) => {
         setInp(''); setLoading(true);
         setMsgs(p => [...p, { id: Date.now(), type: 'usr', text: msg }]);
         try {
-            const r = await fetch('http://localhost:5000/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg, history: msgs }) });
+            const r = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg, history: msgs }) });
             const d = await r.json();
             setMsgs(p => [...p, { id: Date.now() + 1, type: 'ai', text: d.reply }]);
         } catch (e) { setMsgs(p => [...p, { id: Date.now() + 1, type: 'ai', text: 'Connection failed.' }]); }
@@ -744,7 +744,7 @@ const TripPlanner = () => {
     const pdfRef = useRef();
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/destinations')
+        fetch('/api/destinations')
             .then(res => res.json())
             .then(d => {
                 setDestinations(d);
@@ -1221,7 +1221,7 @@ const Weather = () => {
     const [selectedCity, setSelectedCity] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/destinations')
+        fetch('/api/destinations')
             .then(res => res.json())
             .then(d => setDestinations(d));
     }, []);

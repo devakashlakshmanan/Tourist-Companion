@@ -11,8 +11,12 @@ from destinations_data import DESTINATIONS
 
 load_dotenv(override=True)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend', static_url_path='/')
 CORS(app)
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 # Initialize MongoDB client
 mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
